@@ -31,30 +31,27 @@ void radix_sort(int* values){
             *(values+i)/=10;
         }
     }
-    int j=max_digits-1;
-    int i=0;
-    int sort_value=0;
-    int last_position_changed=0;
-    int* hold=new int[max_digits];
 
-    while(i!=ARRAY_SIZE-1 || j!=0){
-        if(matrix[i][j]==sort_value){
-            hold=matrix[i];
-            matrix[i]=matrix[last_position_changed];
-            matrix[last_position_changed]=hold;
-            last_position_changed++;
-        }
-        i++;
-        if(i==ARRAY_SIZE){
-            if(sort_value==9){
-                j--;
-                i=0;
-                sort_value=0;
-                last_position_changed=0;
-            }else{
-                i=0;
-                sort_value++;
+    int* hold=new int[max_digits];
+    int indicator_schimbare=1;
+    int j=max_digits-1;
+
+    while(j!=-1){
+            //aranjam matricea folosind bubble sort
+        indicator_schimbare=0;
+
+        for(int i=0;i<ARRAY_SIZE-1;i++){
+            if(matrix[i][j]>matrix[i+1][j]){
+                indicator_schimbare=1;
+
+                hold=matrix[i];
+                matrix[i]=matrix[i+1];
+                matrix[i+1]=hold;
             }
+        }
+
+        if(!indicator_schimbare){
+            j--;
         }
     }
     int* orderedVector=new int[ARRAY_SIZE];
