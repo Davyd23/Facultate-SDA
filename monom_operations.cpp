@@ -99,9 +99,10 @@ void parcurgere(monom *start){
         if(q->coeficient!=1){
             cout<<q->coeficient;
         }
-        cout<<q->var;
-        if(q->grad!=1){
-            cout<<"^"<<q->grad;
+        switch(q->grad){
+            case 0:break;
+            case 1:cout<<q->var;break;
+            default:cout<<q->var<<"^"<<q->grad;
         }
         nr_elm++;
     }
