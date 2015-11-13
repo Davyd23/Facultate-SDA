@@ -19,14 +19,14 @@ monom* copiere_valori_poz_curent(monom *mon);
 monom* sterge_zero(monom *mon);
 
 int main(){
-    cout<<"In acest program , vom face operatii cu 2 ecuati."<<endl;
-    cout<<"De ce variabila depind ecuatiile?: ";cin>>var;
-    cout<<endl<<"Introduceti prima ecuatie:"<<endl;
+    cout<<"In acest program , vom face operatii cu 2 polinoame."<<endl;
+    cout<<"De ce variabila depind polinoamele?: ";cin>>var;
+    cout<<endl<<"Introduceti primul polinom:"<<endl;
     monom *ec1=creaza();
     cout<<"ec 1 ordonata este: ";
     ec1=ordonare(ec1);
     parcurgere(ec1);
-    cout<<endl<<"Introduceti cea de-a 2 ecuatie:"<<endl;
+    cout<<endl<<"Introduceti cel de-al 2 polinom:"<<endl;
     monom *ec2=creaza();
     cout<<"ec 2 ordonata este: ";
     ec2=ordonare(ec2);
@@ -37,16 +37,16 @@ int main(){
     while(operatie!='n' && operatie!='N'){
         switch(operatie){
             case 'a':case 'A':{ monom *adunare_fc=adunare(ec1,ec2);
-                                cout<<"Adunarea celor 2 functi returneaza: "<<endl;
+                                cout<<"Adunarea celor 2 polinoame returneaza: "<<endl;
                                 parcurgere(adunare_fc);
                                 break;
                               }
-            case 'i':case 'I':{ cout<<"Inmultirea celor 2 functi returneaza functia:"<<endl;
+            case 'i':case 'I':{ cout<<"Inmultirea celor 2 polinoame returneaza functia:"<<endl;
                                 monom *inmultire_functii=inmultire(ec1,ec2);
                                 parcurgere(inmultire_functii);
                                 break;
                               }
-            case 's':case 'S':{ cout<<"Scaderea celor 2 functi returneaza functia:"<<endl;
+            case 's':case 'S':{ cout<<"Scaderea celor 2 polinoame returneaza functia:"<<endl;
                                 monom *scadere_functii=scadere(ec1,ec2);
                                 parcurgere(scadere_functii);
                                 break;
@@ -68,7 +68,7 @@ monom* creaza(){
     monom *q=ecuatie;
 
     char continuare;
-    cout<<"Ecuatia mai are termeni? [D/N]:";cin>>continuare;
+    cout<<"Polinomul mai are termeni? [D/N]:";cin>>continuare;
 
     while (continuare=='D' || continuare=='d'){
         monom *p=new monom;
@@ -88,7 +88,7 @@ monom* creaza(){
 void parcurgere(monom *start){
     monom *q;
     if(!start){
-        cout<<"nu avem o ecuatie(monom), adica =0."<<endl;
+        cout<<"nu avem un polinom, adica =0."<<endl;
         return ;
     }
     int nr_elm=0;
