@@ -16,26 +16,49 @@ lista creare();
 lista crescator(lista l);
 void parcurgere(lista l);
 lista unire_crescator(lista l1,lista l2);
+lista unire(lista l1,lista l2);
 
 int main(){
+    cout<<"Se vor crea 2 liste care se vor ordona automat!"<<endl;
+    cout<<endl<<"Lista 1"<<endl;
     lista l1=creare();
-    cout<<"lista1 este:"<<endl;
-    parcurgere(l1);
     l1=crescator(l1);
-    cout<<"lista1 ordonata crescator este:"<<endl;
+    cout<<"Lista 1 ordonata crescator este:"<<endl;
     parcurgere(l1);
 
+    cout<<endl<<"Lista 2"<<endl;
     lista l2=creare();
-    cout<<"lista2 este:"<<endl;
-    parcurgere(l2);
     l2=crescator(l2);
-    cout<<"lista2 ordonata crescator este:"<<endl;
+    cout<<"Lista 2 ordonata crescator este:"<<endl;
     parcurgere(l2);
 
+    lista l;
 
-    cout<<"Marea unire ordonata a celor 2 liste este"<<endl;
-    lista unire=unire_crescator(l1,l2);
-    parcurgere(unire);
+    char a;
+    cout<<endl<<"Ce uniune a listelor facem?\n c-unim listele cu valorile in ordine crescatoare\n u-unim listele in ordine: ";cin>>a;
+    while(a!='n' && a!='N'){
+        switch(a){
+            case'c':case'C':    l=unire_crescator(l1,l2);
+                                cout<<"Listele s-au combinat in lista urmatoare:";
+                                parcurgere(l);
+                                break;
+            case'u':case'U':    cout<<"Lista 1 este prima?[D/N]: ";cin>>a;
+                                if(a=='D'||a=='d'){
+                                    l=unire(l1,l2);
+                                    cout<<endl<<"Unirea listelor in ordinea aleasa este:"<<endl;
+                                    parcurgere(l);
+                                }else if (a=='N'||a=='n'){
+                                    l=unire(l2,l1);
+                                    cout<<endl<<"Unirea listelor in ordinea aleasa este:"<<endl;
+                                    parcurgere(l);
+                                }else{
+                                cout<<"nu stiu aceasta ordine!"<<endl;
+                                }
+                                break;
+
+        }
+        cout<<endl<<"Ce uniune a listelor facem?\n c-unim listele cu valorile in ordine crescatoare\n u-unim listele in ordine\n n-nimic: ";cin>>a;
+    }
     return 0;
 }
 
@@ -112,20 +135,21 @@ lista unire_crescator(lista l1,lista l2){
     lista l;
     nod *cap1=l1.cap;
     nod *cap2=l2.cap;
-    nod *cap=new nod;
+    int val;
+
 
     if(cap1->val<cap2->val){
-        cap->val=cap1->val;
+        val=cap1->val;
         cap1=cap1->urm;
     }else{
-        cap->val=cap2->val;
+        val=cap2->val;
         cap2=cap2->urm;
     }
 
+    nod *cap=initializare(NULL,NULL,val);
     l.cap=cap;
+
     nod *p=l.cap;
-    p->urm=NULL;
-    p->ant=NULL;
 
     while (cap1 && cap2){
         nod *nou=initializare(p,NULL,0);
@@ -170,4 +194,35 @@ nod* initializare(nod *ant,nod *urm,int val){
     nou->val=val;
 
     return nou;
+}
+
+lista unire(lista l1,lista l2){
+    lista l;
+    nod *cap=initializare(NULL,NULL,(l1.cap)->val);
+    l.cap=cap;
+
+    nod *p=cap;
+    nod *cap1=(l1.cap)->urm;
+
+    while(cap1){
+        nod *nou=initializare(p,NULL,cap1->val);
+        p->urm=nou;
+        p=p->urm;
+
+        cap1=cap1->urm;
+    }
+
+    nod *cap2=l2.cap;
+
+    while(cap2){
+        nod *nou=initializare(p,NULL,cap2->val);
+        p->urm=nou;
+        p=p->urm;
+
+        cap2=cap2->urm;
+    }
+
+    l.coada=p;
+
+    return l;
 }
